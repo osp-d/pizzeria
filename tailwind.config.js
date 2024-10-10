@@ -12,6 +12,9 @@ export default {
       aspectRatio: {
         nineToTen: '9/10',
       },
+      screens: {
+        ['mlg']: '1120px',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

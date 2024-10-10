@@ -17,7 +17,7 @@ export function Store() {
     <div>
       <FilterBar />
 
-      <div className="grid grid-cols-3 gap-4 py-6">
+      <div className="mlg:grid-cols-3 grid grid-cols-1 gap-4 py-6 sm:grid-cols-2">
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}

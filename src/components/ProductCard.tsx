@@ -1,9 +1,8 @@
 import { Heart, ShoppingBag } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 
 export function ProductCard({ product }) {
-  const ref = useRef(null);
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -19,7 +18,6 @@ export function ProductCard({ product }) {
     >
       <div className="flex w-full justify-end">
         <Heart
-          ref={ref}
           className={clsx(
             'opacity-0 transition hover:scale-125',
             hovered && 'opacity-100',
