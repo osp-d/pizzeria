@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
 import Carousel from './Carousel';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="h-4/5">
       <div className="m-auto flex max-w-3xl flex-col items-center gap-6">
@@ -12,6 +15,9 @@ export function Home() {
         </h2>
 
         <Button
+          onClick={() => {
+            navigate('/store');
+          }}
           variant="outline"
           className="border-gray-200 font-bold hover:border-gray-500 hover:bg-gray-100"
         >

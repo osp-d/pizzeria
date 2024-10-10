@@ -1,6 +1,7 @@
 import data from '@/assets/tempData.json';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Minus, Plus, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 type Cards = {
   id: string;
@@ -22,9 +23,16 @@ for (let i = 0; i < 5; i++) {
 }
 
 export function Cart() {
+  const navigate = useNavigate();
+
   return (
     <div className="mb-10 flex flex-col gap-6">
-      <div className="w-fit rounded-md p-2 transition hover:bg-gray-100">
+      <div
+        onClick={() => {
+          navigate(-1);
+        }}
+        className="w-fit rounded-md p-2 transition hover:bg-gray-100"
+      >
         <ArrowLeft />
       </div>
 
@@ -39,7 +47,7 @@ export function Cart() {
                   <img src={card.src} alt={card.title} className="w-24" />
                 </div>
 
-                <div className="mlg:flex-row mlg:items-center mlg:gap-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-9 lg:flex-col lg:items-start lg:gap-4">
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-9 lg:flex-col lg:items-start lg:gap-4 mlg:flex-row mlg:items-center mlg:gap-9">
                   <div className="flex min-w-20 flex-col gap-1">
                     <p className="text-lg font-bold">{card.title}</p>
                     <p className="text-base text-blue-500 text-muted-foreground">
