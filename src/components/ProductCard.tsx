@@ -1,14 +1,21 @@
 import { Heart, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { Product } from '@/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions } from '@/redux/Cart/cartSlice';
+import { RootState } from '@/redux/store';
 
-export function ProductCard({ product }) {
+export function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
+  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart.cartItems.inCart);
+  const cartStatus = cart.find((item) => item?.id === product.id);
 
   return (
     <div
       key={product.id}
-      className="aspect-nineToTen flex flex-col items-center justify-between rounded-md bg-gray-100 p-5"
+      className="flex aspect-nineToTen flex-col items-center justify-between rounded-md bg-gray-100 p-5"
       onMouseEnter={() => {
         setHovered(true);
       }}
@@ -30,7 +37,22 @@ export function ProductCard({ product }) {
           <p className="text-lg font-bold">{product.title}</p>
           <p className="text-base font-bold">{product.price} KZT</p>
         </div>
-        <ShoppingBag className="transition hover:scale-125" />
+
+        <div
+          onClick={() => {
+            if (cartStatus) {
+              dispatch(cartActions.remove(product.id));
+            } else {
+              dispatch(cartActions.add(product.id));
+            }
+          }}
+        >
+          {cartStatus ? (
+            <ShoppingBag className="text-green-600 transition hover:scale-125" />
+          ) : (
+            <ShoppingBag className="transition hover:scale-125" />
+          )}
+        </div>
       </div>
     </div>
   );

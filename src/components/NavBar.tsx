@@ -1,7 +1,12 @@
+import { RootState } from '@/redux/store';
 import { Heart, Search, ShoppingBag } from 'lucide-react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export function NavBar() {
+  const cart = useSelector((state: RootState) => state.cart);
+  const cartProductsNum = cart.cartItems.inCart.length;
+
   return (
     <div className="my-6 flex justify-between">
       <div className="flex gap-2">
@@ -38,7 +43,9 @@ export function NavBar() {
           <div className="h-6 w-[1px] rounded-full bg-gray-300" />
           <Link to="/cart" className="flex items-center">
             <ShoppingBag size="20px" color="white" className="m-2" />
-            <div className="my-2 mr-2 font-bold text-white">0</div>
+            <div className="my-2 mr-2 font-bold text-white">
+              {cartProductsNum}
+            </div>
           </Link>
         </div>
       </div>

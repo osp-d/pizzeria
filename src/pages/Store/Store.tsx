@@ -8,16 +8,24 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 
-import products from '@/assets/tempData.json';
+import data from '@/assets/tempData.json';
 import { FilterBar } from './FilterBar';
 import { ProductCard } from '@/components/ProductCard';
+import { Product } from '@/types';
 
 export function Store() {
+  const products: Product[] = data.map((item) => ({
+    ...item,
+    inCart: false,
+    orderNum: 1,
+    isFavorite: false,
+  }));
+
   return (
     <div>
       <FilterBar />
 
-      <div className="mlg:grid-cols-3 grid grid-cols-1 gap-4 py-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 py-6 sm:grid-cols-2 mlg:grid-cols-3">
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}

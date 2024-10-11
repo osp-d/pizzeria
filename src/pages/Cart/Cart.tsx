@@ -1,29 +1,28 @@
-import data from '@/assets/tempData.json';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Minus, Plus, Trash2 } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-type Cards = {
-  id: string;
-  src: string;
-  alt: string;
-  title: string;
-}[];
-
-const cards: Cards = [];
-
-for (let i = 0; i < 5; i++) {
-  const slide = data[i];
-  cards.push({
-    id: slide.id,
-    src: slide.imageUrl,
-    alt: `slide ${slide.id}`,
-    title: slide.title,
-  });
-}
+import { RootState } from '@/redux/store';
+import { Product } from '@/types';
+import { cartActions } from '@/redux/Cart/cartSlice';
 
 export function Cart() {
   const navigate = useNavigate();
+  const products = useSelector(
+    (state: RootState) => state.products.productItems,
+  );
+  const cart = useSelector((state: RootState) => state.cart.cartItems.inCart);
+  const cartItems: Product[] = [];
+
+  for (let i = 0; i < cart.length; i++) {
+    products.map((product) => {
+      if (product.id === cart[i]?.id) {
+        cartItems.push(product);
+      }
+    });
+  }
+
+  const dispatch = useDispatch();
 
   return (
     <div className="mb-10 flex flex-col gap-6">
@@ -40,11 +39,11 @@ export function Cart() {
 
       <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:items-start">
         <div className="flex w-full max-w-screen-md flex-col gap-8">
-          {cards.map((card) => (
+          {cartItems.map((card) => (
             <div key={card.id} className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <div className="flex h-36 w-36 items-center justify-center rounded-lg bg-gray-100">
-                  <img src={card.src} alt={card.title} className="w-24" />
+                  <img src={card.imageUrl} alt={card.title} className="w-24" />
                 </div>
 
                 <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-9 lg:flex-col lg:items-start lg:gap-4 mlg:flex-row mlg:items-center mlg:gap-9">
@@ -69,7 +68,12 @@ export function Cart() {
               </div>
 
               <div className="flex items-center gap-10">
-                <div className="flex h-full items-center justify-center rounded-sm border-[1px] border-gray-300 p-2 transition hover:bg-gray-200">
+                <div
+                  onClick={() => {
+                    dispatch(cartActions.remove(card.id));
+                  }}
+                  className="flex h-full items-center justify-center rounded-sm border-[1px] border-gray-300 p-2 transition hover:bg-gray-200"
+                >
                   <Trash2
                     width="12px"
                     height="12px"
