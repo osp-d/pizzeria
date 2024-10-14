@@ -35,7 +35,7 @@ export function NavBar() {
             className="w-40 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none"
           />
         </form>
-        <div className="flex items-center gap-1 rounded-full bg-gray-700 px-2">
+        <div className="flex items-center gap-1 rounded-full bg-gray-900 px-2">
           <div className="flex items-center">
             <Heart size="20px" color="white" className="m-2" />
             <div className="my-2 mr-2 font-bold text-white">0</div>

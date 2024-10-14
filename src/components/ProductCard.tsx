@@ -5,12 +5,14 @@ import { Product } from '@/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '@/redux/Cart/cartSlice';
 import { RootState } from '@/redux/store';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.cartItems.inCart);
-  const cartStatus = cart.find((item) => item?.id === product.id);
+  const cartStatus = cart.find((item) => item?.product.id === product.id);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -21,6 +23,9 @@ export function ProductCard({ product }: { product: Product }) {
       }}
       onMouseLeave={() => {
         setHovered(false);
+      }}
+      onClick={() => {
+        navigate(`${product.id}`, { state: product });
       }}
     >
       <div className="flex w-full justify-end">
@@ -39,11 +44,19 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <div
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
+
             if (cartStatus) {
               dispatch(cartActions.remove(product.id));
             } else {
-              dispatch(cartActions.add(product.id));
+              dispatch(
+                cartActions.add({
+                  product: product,
+                  selectedSize: '30',
+                  quantity: 1,
+                }),
+              );
             }
           }}
         >

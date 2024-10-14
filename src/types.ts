@@ -8,3 +8,9 @@ export interface Product {
   description: string;
   rating: string;
 }
+
+export interface PurchaseProduct {
+  product: Product;
+  selectedSize: string;
+  quantity: number;
+}
