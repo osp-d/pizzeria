@@ -4,6 +4,7 @@ import { PurchaseProduct } from '@/types';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export function CartItem({ item }: { item: PurchaseProduct }) {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ export function CartItem({ item }: { item: PurchaseProduct }) {
   return (
     <div key={product.id} className="flex items-center justify-between">
       <div className="flex items-center gap-6">
-        <div className="flex h-36 w-36 items-center justify-center rounded-lg bg-gray-100">
-          <img src={product.imageUrl} alt={product.title} className="w-24" />
-        </div>
+        <Link to={`../store/${product.id}`}>
+          <div className="flex h-36 w-36 items-center justify-center rounded-lg bg-gray-100">
+            <img src={product.imageUrl} alt={product.title} className="w-24" />
+          </div>
+        </Link>
 
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-9 lg:flex-col lg:items-start lg:gap-4 mlg:flex-row mlg:items-center mlg:gap-9">
           <div className="flex min-w-20 flex-col gap-1">

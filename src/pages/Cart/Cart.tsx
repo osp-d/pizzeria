@@ -13,6 +13,24 @@ export function Cart() {
     (state: RootState) => state.cart.cartItems.inCart,
   );
 
+  let subtotal = 0;
+
+  if (cartItems) {
+    subtotal = cartItems.reduce((acc, item): number => {
+      if (item?.selectedSize === '25') {
+        return acc + +item.product.price * item.quantity;
+      } else if (item?.selectedSize === '30') {
+        return acc + +item.product.price * 1.2 * item.quantity;
+      } else if (item?.selectedSize === '35') {
+        return acc + +item.product.price * 1.4 * item.quantity;
+      }
+    }, 0);
+  }
+
+  const tax = Math.floor(subtotal * 0.12 * 100) / 100;
+  const total = subtotal + tax;
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <div className="mb-10 flex flex-col gap-6">
       <div
@@ -35,19 +53,19 @@ export function Cart() {
 
         <div className="flex h-fit w-full flex-col gap-6 rounded-md border-[1px] border-gray-300 p-10 lg:max-w-96">
           <p className="text-lg font-bold">Order summary</p>
-          <p className="text-xl font-bold">16800 KZT</p>
+          <p className="text-xl font-bold">{total} KZT</p>
           <div className="flex items-center justify-between">
-            <p className="text-base">Subtotal ({3})</p>
-            <p className="text-base">15000 KZT</p>
+            <p className="text-base">Subtotal ({totalQuantity})</p>
+            <p className="text-base">{subtotal} KZT</p>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-base">VAT (12%)</p>
-            <p className="text-base">1800 KZT</p>
+            <p className="text-base">{tax} KZT</p>
           </div>
           <div className="h-[1px] w-full bg-gray-200" />
           <div className="flex items-center justify-between">
             <p className="text-lg font-bold">Total</p>
-            <p className="text-lg font-bold">16800 KZT</p>
+            <p className="text-lg font-bold">{total} KZT</p>
           </div>
           <Button className="bg-blue-500 hover:bg-blue-700">Checkout</Button>
         </div>

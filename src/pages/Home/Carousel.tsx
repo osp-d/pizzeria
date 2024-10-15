@@ -1,28 +1,20 @@
-import data from '@/assets/tempData.json';
 import { Button } from '@/components/ui/button';
+import { RootState } from '@/redux/store';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
-
-type Slides = {
-  id: string;
-  src: string;
-  alt: string;
-  title: string;
-}[];
-
-const slides: Slides = [];
-
-for (let i = 0; i < 5; i++) {
-  const slide = data[i];
-  slides.push({
-    id: slide.id,
-    src: slide.imageUrl,
-    alt: `slide ${slide.id}`,
-    title: slide.title,
-  });
-}
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Carousel() {
+  const products = useSelector(
+    (state: RootState) => state.products.productItems,
+  );
+  const slides = [];
+  for (let i = 0; i < 5; i++) {
+    slides.push(products[i]);
+  }
+
+  const navigate = useNavigate();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -63,10 +55,13 @@ export default function Carousel() {
             <div
               key={slide.id}
               className="relative flex aspect-square min-w-0 flex-[0_0_100%] flex-col items-center justify-center gap-4 rounded-lg bg-gray-100"
+              onClick={() => {
+                navigate(`store/${slide.id}`);
+              }}
             >
               <img
-                src={slide.src}
-                alt={slide.alt}
+                src={slide.imageUrl}
+                alt={slide.title}
                 width="70%"
                 className="-mr-2"
               />
