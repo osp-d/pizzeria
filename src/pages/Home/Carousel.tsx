@@ -1,14 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { RootState } from '@/redux/store';
+import { Product } from '@/types';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export default function Carousel() {
-  const products = useSelector(
-    (state: RootState) => state.products.productItems,
-  );
+export default function Carousel({ data }: { data: Product[] }) {
+  const products = data;
+
   const slides = [];
   for (let i = 0; i < 5; i++) {
     slides.push(products[i]);
