@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '@/App';
 import { Home } from '@/pages/Home/Home';
-import { Store } from '@/pages/Store/Store';
+import { StoreContainer } from '@/pages/Store/StoreContainer';
 import { Cart } from '@/pages/Cart/Cart';
 import { ProductView } from '@/pages/Product/ProductView';
 
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/store',
-        element: <Store />,
+        element: <StoreContainer />,
       },
       {
         path: '/store/:id',

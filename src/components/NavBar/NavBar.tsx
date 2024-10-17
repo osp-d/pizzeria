@@ -1,7 +1,8 @@
 import { RootState } from '@/redux/store';
-import { Heart, Search, ShoppingBag } from 'lucide-react';
+import { Heart, ShoppingBag } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Search } from './Search';
 
 export function NavBar() {
   const cart = useSelector((state: RootState) => state.cart);
@@ -27,14 +28,8 @@ export function NavBar() {
         </Link>
       </div>
       <div className="flex gap-3">
-        <form className="flex items-center gap-1 rounded-full bg-gray-50 px-4">
-          <Search size="20px" className="my-2" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-40 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none"
-          />
-        </form>
+        <Search />
+
         <div className="flex items-center gap-1 rounded-full bg-gray-900 px-2">
           <div className="flex items-center">
             <Heart size="20px" color="white" className="m-2" />
