@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 import { useSelector } from 'react-redux';
@@ -6,12 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '@/redux/store';
 import { CartItem } from './CartItem';
 import { PurchaseProduct } from '@/types';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { useState } from 'react';
 
 export function Cart() {
   const navigate = useNavigate();
   const cartItems = useSelector(
     (state: RootState) => state.cart.cartItems.inCart,
   );
+  const [isOpen, setIsOpen] = useState(false);
 
   let subtotal = 0;
 
@@ -24,6 +31,7 @@ export function Cart() {
       } else if (item?.selectedSize === '35') {
         return acc + +item.product.price * 1.4 * item.quantity;
       }
+      return 0;
     }, 0);
   }
 
@@ -46,9 +54,13 @@ export function Cart() {
 
       <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:items-start">
         <div className="flex w-full max-w-screen-md flex-col gap-8">
-          {cartItems.map((item) => (
-            <CartItem item={item as PurchaseProduct} key={item?.product.id} />
-          ))}
+          {cartItems.length === 0 ? (
+            <p className="text-muted-foreground">Card is empty.</p>
+          ) : (
+            cartItems.map((item) => (
+              <CartItem item={item as PurchaseProduct} key={item?.product.id} />
+            ))
+          )}
         </div>
 
         <div className="flex h-fit w-full flex-col gap-6 rounded-md border-[1px] border-gray-300 p-10 lg:max-w-96">
@@ -67,7 +79,24 @@ export function Cart() {
             <p className="text-lg font-bold">Total</p>
             <p className="text-lg font-bold">{total} KZT</p>
           </div>
-          <Button className="bg-blue-500 hover:bg-blue-700">Checkout</Button>
+
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger
+              disabled={cartItems.length === 0}
+              className="bg-blue-500 text-white hover:bg-blue-700"
+            >
+              Checkout
+            </SheetTrigger>
+            <SheetContent className="flex max-w-72 flex-col items-start">
+              <SheetHeader className="text-lg font-bold">Checkout</SheetHeader>
+              <div className="h-[1px] w-full bg-gray-300" />
+              <p className="font-bold">Congratulations!</p>
+              <p>
+                If it was a real store, you would have been redirected to
+                checkout.
+              </p>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </div>

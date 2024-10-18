@@ -13,6 +13,7 @@ export default {
         nineToTen: '9/10',
       },
       screens: {
+        ['xs']: '425px',
         ['mlg']: '1120px',
       },
       colors: {

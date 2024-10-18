@@ -26,7 +26,7 @@ export function Search() {
       <input
         type="text"
         placeholder="Search"
-        className="w-40 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none"
+        className="xs:w-28 w-20 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none sm:w-40"
         onChange={handleChange}
       />
     </form>
