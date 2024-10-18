@@ -17,11 +17,20 @@ import { useSelector } from 'react-redux';
 import { sortProducts } from '@/utils/sortProducts';
 
 export function StoreContent({ data }: { data: Product[] }) {
-  const { searchValue, category, sort } = useSelector(
+  const { searchValue, category, sort, favorites } = useSelector(
     (state: RootState) => state.filter,
   );
+  const favoriteItems = useSelector(
+    (state: RootState) => state.favorites.favoriteItems,
+  );
 
-  const filteredProducts = filterProducts(data, searchValue, category);
+  let selectedData = [...data];
+
+  if (favorites) {
+    selectedData = [...favoriteItems];
+  }
+
+  const filteredProducts = filterProducts(selectedData, searchValue, category);
   const sortedProducts = sortProducts(filteredProducts, sort);
   const pageNumber = Math.ceil(filteredProducts.length / 12);
   const paginationItems: Array<React.ReactNode> = [];
@@ -40,7 +49,7 @@ export function StoreContent({ data }: { data: Product[] }) {
     <div>
       <FilterBar isDisabled={false} />
 
-      <p className="pt-4 font-bold">{`Products (${filteredProducts.length})`}</p>
+      <p className="pt-4 font-bold">{`Products (${filteredProducts.length}) ${favorites ? '- Favorites' : ''}`}</p>
 
       <div className="grid grid-cols-1 gap-4 py-6 sm:grid-cols-2 mlg:grid-cols-3">
         {sortedProducts !== undefined

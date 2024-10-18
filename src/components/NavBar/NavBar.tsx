@@ -1,18 +1,30 @@
 import { RootState } from '@/redux/store';
 import { Heart, Menu, ShoppingBag } from 'lucide-react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search } from './Search';
 import { useMedia } from 'react-use';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
 import { useState } from 'react';
+import { filterActions } from '@/redux/Filter/filterSlice';
 
 export function NavBar() {
   const cart = useSelector((state: RootState) => state.cart);
-  const cartProductsNum = cart.cartItems.inCart.length;
+  const cartProductsNum = cart.cartItems.length;
+
+  const favorites = useSelector((state: RootState) => state.favorites);
+  const favoriteProductsNum = favorites.favoriteItems.length;
+
+  const favoritesIsOn = useSelector(
+    (state: RootState) => state.filter.favorites,
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMedia('(max-width: 768px', false);
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="my-6 flex justify-between">
@@ -65,10 +77,37 @@ export function NavBar() {
         <Search />
 
         <div className="flex items-center gap-1 rounded-full bg-gray-900 px-2">
-          <div className="flex items-center">
-            <Heart size="20px" color="white" className="m-2" />
-            <div className="my-2 mr-2 font-bold text-white">0</div>
+          <div
+            onClick={() => {
+              if (location.pathname !== '/store') {
+                dispatch(filterActions.setFavorites(true));
+                navigate('/store');
+              } else {
+                if (favoritesIsOn) {
+                  dispatch(filterActions.setFavorites(false));
+                } else {
+                  dispatch(filterActions.setFavorites(true));
+                }
+              }
+            }}
+          >
+            {favoritesIsOn ? (
+              <div className="flex items-center">
+                <Heart size="20px" color="white" fill="white" className="m-2" />
+                <div className="my-2 mr-2 font-bold text-white">
+                  {favoriteProductsNum}
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <Heart size="20px" color="white" className="m-2" />
+                <div className="my-2 mr-2 font-bold text-white">
+                  {favoriteProductsNum}
+                </div>
+              </div>
+            )}
           </div>
+
           <div className="h-6 w-[1px] rounded-full bg-gray-300" />
           <Link to="/cart" className="flex items-center">
             <ShoppingBag size="20px" color="white" className="m-2" />

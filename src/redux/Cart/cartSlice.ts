@@ -2,10 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Product, PurchaseProduct } from '@/types';
 
-interface PurchaseProducts {
-  inCart: Array<PurchaseProduct | undefined>;
-  inFavorites: Array<string>;
-}
+type PurchaseProducts = Array<PurchaseProduct | undefined>;
 
 interface AddProduct {
   product: Product;
@@ -23,11 +20,10 @@ interface EditSize {
   size: string;
 }
 
-const initialState: { cartItems: PurchaseProducts } = {
-  cartItems: {
-    inCart: [],
-    inFavorites: [],
-  },
+const initialState: {
+  cartItems: PurchaseProducts;
+} = {
+  cartItems: [],
 };
 
 export const cartSlice = createSlice({
@@ -35,33 +31,33 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<AddProduct>) => {
-      state.cartItems.inCart.push({
+      state.cartItems.push({
         product: action.payload.product,
         selectedSize: action.payload.selectedSize,
         quantity: action.payload.quantity,
       });
     },
     remove: (state, action: PayloadAction<string>) => {
-      state.cartItems.inCart = state.cartItems.inCart.filter(
+      state.cartItems = state.cartItems.filter(
         (item) => item?.product.id !== action.payload,
       );
     },
     setQuantity: (state, action: PayloadAction<EditQuantity>) => {
-      const itemId = state.cartItems.inCart.findIndex(
+      const itemId = state.cartItems.findIndex(
         (item) => item?.product.id === action.payload.id,
       );
 
-      if (state.cartItems.inCart[itemId]) {
-        state.cartItems.inCart[itemId].quantity = action.payload.quantity;
+      if (state.cartItems[itemId]) {
+        state.cartItems[itemId].quantity = action.payload.quantity;
       }
     },
     setSize: (state, action: PayloadAction<EditSize>) => {
-      const itemId = state.cartItems.inCart.findIndex(
+      const itemId = state.cartItems.findIndex(
         (item) => item?.product.id === action.payload.id,
       );
 
-      if (state.cartItems.inCart[itemId]) {
-        state.cartItems.inCart[itemId].selectedSize = action.payload.size;
+      if (state.cartItems[itemId]) {
+        state.cartItems[itemId].selectedSize = action.payload.size;
       }
     },
   },

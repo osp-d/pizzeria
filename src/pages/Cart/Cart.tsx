@@ -15,9 +15,7 @@ import { useState } from 'react';
 
 export function Cart() {
   const navigate = useNavigate();
-  const cartItems = useSelector(
-    (state: RootState) => state.cart.cartItems.inCart,
-  );
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const [isOpen, setIsOpen] = useState(false);
 
   let subtotal = 0;

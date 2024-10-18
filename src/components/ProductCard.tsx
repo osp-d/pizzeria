@@ -6,12 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '@/redux/Cart/cartSlice';
 import { RootState } from '@/redux/store';
 import { Link } from 'react-router-dom';
+import { favoritesActions } from '@/redux/Favorites/favoritesSlice';
 
 export function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
   const dispatch = useDispatch();
-  const cart = useSelector((state: RootState) => state.cart.cartItems.inCart);
+  const cart = useSelector((state: RootState) => state.cart.cartItems);
   const cartStatus = cart.find((item) => item?.product.id === product.id);
+
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favoriteItems,
+  );
+  const favoriteStatus = favorites.find((item) => item?.id === product.id);
 
   return (
     <Link
@@ -25,13 +31,32 @@ export function ProductCard({ product }: { product: Product }) {
       }}
       to={`${product.id}`}
     >
-      <div className="flex w-full justify-end">
-        <Heart
-          className={clsx(
-            'opacity-0 transition hover:scale-125',
-            hovered && 'opacity-100',
-          )}
-        />
+      <div
+        className="flex w-full justify-end"
+        onClick={(event) => {
+          event.preventDefault();
+
+          if (favoriteStatus) {
+            dispatch(favoritesActions.remove(product.id));
+          } else {
+            dispatch(favoritesActions.add(product));
+          }
+        }}
+      >
+        {favoriteStatus ? (
+          <Heart
+            fill="red"
+            color="red"
+            className="transition hover:scale-125"
+          />
+        ) : (
+          <Heart
+            className={clsx(
+              'opacity-0 transition hover:scale-125',
+              hovered && 'opacity-100',
+            )}
+          />
+        )}
       </div>
       <img src={product.imageUrl} width="120px" />
       <div className="flex aspect-auto w-full items-center justify-between">

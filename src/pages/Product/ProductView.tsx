@@ -5,12 +5,14 @@ import { RootState } from '@/redux/store';
 import { cartActions } from '@/redux/Cart/cartSlice';
 import { Product } from '@/types';
 
-import { ArrowLeft, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Heart, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EditQuantity } from '@/components/EditQuantity';
 import { useGetPizzasQuery } from '@/services/pizzaApi';
 import { ProductSkeleton } from './ProductSkeleton';
+import { favoritesActions } from '@/redux/Favorites/favoritesSlice';
+import clsx from 'clsx';
 
 export function ProductView() {
   const navigate = useNavigate();
@@ -19,12 +21,19 @@ export function ProductView() {
   const { data, isLoading, isSuccess, isError, error } = useGetPizzasQuery();
 
   const cartStatus = useSelector(
-    (state: RootState) => state.cart.cartItems.inCart,
+    (state: RootState) => state.cart.cartItems,
   ).find((item) => item?.product.id === id);
 
   const [quantity, setQuantity] = useState(cartStatus?.quantity ?? 1);
   const [size, setSize] = useState(cartStatus?.selectedSize ?? '30');
   const dispatch = useDispatch();
+
+  const [hovered, setHovered] = useState(false);
+
+  const favourites = useSelector(
+    (state: RootState) => state.favorites.favoriteItems,
+  );
+  const favoriteStatus = favourites.find((item) => item?.id === id);
 
   let productPrice: number;
   let content: React.ReactNode;
@@ -51,8 +60,48 @@ export function ProductView() {
 
       content = (
         <div className="flex flex-col gap-8 md:flex-row">
-          <div className="flex aspect-square items-center justify-center rounded-md bg-gray-100 md:max-w-md">
-            <img src={product.imageUrl} alt={product.title} width="70%" />
+          <div
+            className="flex aspect-square flex-col items-center gap-4 rounded-md bg-gray-100 p-5 md:max-w-md"
+            onMouseEnter={() => {
+              setHovered(true);
+            }}
+            onMouseLeave={() => {
+              setHovered(false);
+            }}
+          >
+            <div
+              className="flex w-full justify-end"
+              onClick={(event) => {
+                event.preventDefault();
+
+                if (favoriteStatus) {
+                  dispatch(favoritesActions.remove(product.id));
+                } else {
+                  dispatch(favoritesActions.add(product));
+                }
+              }}
+            >
+              {favoriteStatus ? (
+                <Heart
+                  fill="red"
+                  color="red"
+                  className="transition hover:scale-125"
+                />
+              ) : (
+                <Heart
+                  className={clsx(
+                    'opacity-0 transition hover:scale-125',
+                    hovered && 'opacity-100',
+                  )}
+                />
+              )}
+            </div>
+            <img
+              src={product.imageUrl}
+              alt={product.title}
+              width="70%"
+              className="m-auto"
+            />
           </div>
 
           <div className="flex flex-col gap-6">

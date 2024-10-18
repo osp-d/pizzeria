@@ -5,6 +5,7 @@ const initialState = {
   category: 'all',
   currentPage: '',
   sort: 'popularity',
+  favorites: false,
 };
 
 const filterSlice = createSlice({
@@ -23,6 +24,9 @@ const filterSlice = createSlice({
     },
     setSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
+    },
+    setFavorites: (state, action: PayloadAction<boolean>) => {
+      state.favorites = action.payload;
     },
   },
 });
