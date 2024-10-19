@@ -27,7 +27,7 @@ export function NavBar() {
   const navigate = useNavigate();
 
   return (
-    <div className="my-6 flex justify-between">
+    <div className="my-6 flex items-center justify-between">
       {isMobile ? (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger className="mr-2 rounded-sm p-2">
@@ -54,22 +54,28 @@ export function NavBar() {
           </SheetContent>
         </Sheet>
       ) : (
-        <div className="flex gap-2">
-          <Link to="/" className="px-4 py-2 text-gray-900 hover:text-gray-500">
-            Logo
-          </Link>
+        <div className="flex gap-10">
           <Link
             to="/"
-            className="border-b-2 border-transparent px-4 pt-2 font-bold text-gray-900 transition hover:border-gray-900 hover:text-gray-900 active:border-none active:bg-gray-50"
+            className="p-0 font-sansLogo text-3xl font-bold text-gray-900 hover:text-gray-500"
           >
-            Home
+            Pizzeria.
           </Link>
-          <Link
-            to="/store"
-            className="border-b-2 border-transparent px-4 pt-2 font-bold text-gray-900 transition hover:border-gray-900 hover:text-gray-900 active:border-none active:bg-gray-50"
-          >
-            Store
-          </Link>
+
+          <div className="flex gap-2">
+            <Link
+              to="/"
+              className="flex items-center border-b-2 border-transparent px-4 font-bold text-gray-900 transition hover:border-gray-900 hover:text-gray-900 active:border-none active:bg-gray-50"
+            >
+              Home
+            </Link>
+            <Link
+              to="/store"
+              className="flex items-center border-b-2 border-transparent px-4 font-bold text-gray-900 transition hover:border-gray-900 hover:text-gray-900 active:border-none active:bg-gray-50"
+            >
+              Store
+            </Link>
+          </div>
         </div>
       )}
 

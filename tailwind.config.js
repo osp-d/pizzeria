@@ -16,6 +16,9 @@ export default {
         ['xs']: '425px',
         ['mlg']: '1120px',
       },
+      fontFamily: {
+        sansLogo: ['Helvetica', 'Arial', 'sans-serif'],
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

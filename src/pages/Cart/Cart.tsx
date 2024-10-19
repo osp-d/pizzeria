@@ -53,7 +53,7 @@ export function Cart() {
       <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:items-start">
         <div className="flex w-full max-w-screen-md flex-col gap-8">
           {cartItems.length === 0 ? (
-            <p className="text-muted-foreground">Card is empty.</p>
+            <p className="text-muted-foreground">Bag is empty.</p>
           ) : (
             cartItems.map((item) => (
               <CartItem item={item as PurchaseProduct} key={item?.product.id} />
