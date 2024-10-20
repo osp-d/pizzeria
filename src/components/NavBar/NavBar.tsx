@@ -29,7 +29,7 @@ export function NavBar() {
   const navigate = useNavigate();
 
   return (
-    <div className="my-6 flex items-center justify-between">
+    <div className="mb-6 flex items-center justify-between">
       {isMobile ? (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger className="mr-2 rounded-sm p-2">
