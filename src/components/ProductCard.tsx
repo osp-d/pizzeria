@@ -1,12 +1,14 @@
-import { Heart, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
-import clsx from 'clsx';
-import { Product } from '@/types';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '@/redux/Cart/cartSlice';
-import { RootState } from '@/redux/store';
-import { Link } from 'react-router-dom';
 import { favoritesActions } from '@/redux/Favorites/favoritesSlice';
+import clsx from 'clsx';
+
+import { RootState } from '@/redux/store';
+import { Product } from '@/types';
+
+import { Heart, ShoppingBag } from 'lucide-react';
 
 export function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);

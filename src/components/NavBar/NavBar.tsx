@@ -1,13 +1,15 @@
-import { RootState } from '@/redux/store';
-import { Heart, Menu } from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search } from './Search';
-import { useMedia } from 'react-use';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
 import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterActions } from '@/redux/Filter/filterSlice';
+import { useMedia } from 'react-use';
+import { Search } from './Search';
 import { CartHover } from './CartHover';
+
+import { RootState } from '@/redux/store';
+
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
+import { Heart, Menu } from 'lucide-react';
 
 export function NavBar() {
   const cart = useSelector((state: RootState) => state.cart);

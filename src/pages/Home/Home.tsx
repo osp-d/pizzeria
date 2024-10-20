@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
-import Carousel from './Carousel';
 import { useNavigate } from 'react-router-dom';
 import { useGetPizzasQuery } from '@/services/pizzaApi';
+import Carousel from './Carousel';
 import { HomeSkeleton } from './HomeSkeleton';
+
+import { Button } from '@/components/ui/button';
 
 export function Home() {
   const navigate = useNavigate();

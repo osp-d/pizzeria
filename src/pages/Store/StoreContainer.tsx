@@ -1,6 +1,6 @@
 import { useGetPizzasQuery } from '@/services/pizzaApi';
-import { StoreSkeleton } from './StoreSkeleton';
 
+import { StoreSkeleton } from './StoreSkeleton';
 import { StoreContent } from './StoreContent';
 
 export function StoreContainer() {

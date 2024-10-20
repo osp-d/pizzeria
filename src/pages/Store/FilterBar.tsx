@@ -1,3 +1,11 @@
+import { useState } from 'react';
+import { useMedia } from 'react-use';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterActions } from '@/redux/Filter/filterSlice';
+import { cn } from '@/lib/utils';
+
+import { RootState } from '@/redux/store';
+
 import {
   Select,
   SelectContent,
@@ -5,15 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
 import { Button } from '@/components/ui/button';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { RootState } from '@/redux/store';
-import { filterActions } from '@/redux/Filter/filterSlice';
-import { cn } from '@/lib/utils';
-import { useMedia } from 'react-use';
-import { Filter } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -21,6 +21,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Label } from '@/components/ui/label';
+import { Filter } from 'lucide-react';
 
 export function FilterBar({ isDisabled }: { isDisabled: boolean }) {
   const dispatch = useDispatch();

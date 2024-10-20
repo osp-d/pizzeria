@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { cartReducer } from './Cart/cartSlice';
 import { pizzaApi } from '@/services/pizzaApi';
+import { cartReducer } from './Cart/cartSlice';
 import { filterReducer } from './Filter/filterSlice';
 import { favoritesReducer } from './Favorites/favoritesSlice';
 

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 import { cartActions } from '@/redux/Cart/cartSlice';
-import { Product } from '@/types';
+import { favoritesActions } from '@/redux/Favorites/favoritesSlice';
+import { useGetPizzasQuery } from '@/services/pizzaApi';
+import { ProductSkeleton } from './ProductSkeleton';
+import clsx from 'clsx';
 
-import { ArrowLeft, Heart, ShoppingBag } from 'lucide-react';
+import { Product } from '@/types';
+import { RootState } from '@/redux/store';
+
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EditQuantity } from '@/components/EditQuantity';
-import { useGetPizzasQuery } from '@/services/pizzaApi';
-import { ProductSkeleton } from './ProductSkeleton';
-import { favoritesActions } from '@/redux/Favorites/favoritesSlice';
-import clsx from 'clsx';
+import { ArrowLeft, Heart, ShoppingBag } from 'lucide-react';
 
 export function ProductView() {
   const navigate = useNavigate();

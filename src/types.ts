@@ -14,3 +14,5 @@ export interface PurchaseProduct {
   selectedSize: string;
   quantity: number;
 }
+
+export type PurchaseProducts = Array<PurchaseProduct | undefined>;

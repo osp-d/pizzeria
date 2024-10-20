@@ -1,10 +1,12 @@
-import { EditQuantity } from '@/components/EditQuantity';
-import { cartActions } from '@/redux/Cart/cartSlice';
-import { PurchaseProduct } from '@/types';
-import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { cartActions } from '@/redux/Cart/cartSlice';
+
+import { PurchaseProduct } from '@/types';
+
+import { EditQuantity } from '@/components/EditQuantity';
+import { Trash2 } from 'lucide-react';
 
 export function CartItem({ item }: { item: PurchaseProduct }) {
   const dispatch = useDispatch();

@@ -1,8 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { Product } from '@/types';
-import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useEmblaCarousel from 'embla-carousel-react';
+
+import { Product } from '@/types';
+
+import { Button } from '@/components/ui/button';
 
 export default function Carousel({ data }: { data: Product[] }) {
   const products = data;

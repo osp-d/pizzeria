@@ -1,8 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { Product, PurchaseProduct } from '@/types';
-
-export type PurchaseProducts = Array<PurchaseProduct | undefined>;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Product, PurchaseProducts } from '@/types';
 
 interface AddProduct {
   product: Product;

@@ -1,17 +1,18 @@
-import { ArrowLeft } from 'lucide-react';
-
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '@/redux/store';
 import { CartItem } from './CartItem';
+
+import { RootState } from '@/redux/store';
 import { PurchaseProduct } from '@/types';
+
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 
 export function Cart() {
   const navigate = useNavigate();

@@ -1,7 +1,8 @@
-import { Search as SearchIcon } from 'lucide-react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { filterActions } from '@/redux/Filter/filterSlice';
+
+import { Search as SearchIcon } from 'lucide-react';
 
 export function Search() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export function Search() {
       <input
         type="text"
         placeholder="Search"
-        className="xs:w-28 w-20 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none sm:w-40"
+        className="w-20 bg-gray-50 p-2 font-bold text-muted-foreground focus:outline-none xs:w-28 sm:w-40"
         onChange={handleChange}
       />
     </form>

@@ -1,13 +1,16 @@
-import { ShoppingBag, Trash2 } from 'lucide-react';
-import { cartActions, PurchaseProducts } from '@/redux/Cart/cartSlice';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '@/redux/Cart/cartSlice';
+
+import { PurchaseProducts } from '@/types';
+
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Button } from '../ui/button';
+import { ShoppingBag, Trash2 } from 'lucide-react';
 
 export function CartHover({
   cart,

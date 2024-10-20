@@ -1,12 +1,12 @@
-import { filterProducts } from '@/utils/filterProducts';
-import { sortProducts } from '@/utils/sortProducts';
-import { Product } from '@/types';
-import { RootState } from '@/redux/store';
-
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
+import { filterProducts } from '@/utils/filterProducts';
+import { sortProducts } from '@/utils/sortProducts';
 import { FilterBar } from './FilterBar';
+
+import { Product } from '@/types';
+import { RootState } from '@/redux/store';
 
 import { ProductCard } from '@/components/ProductCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
