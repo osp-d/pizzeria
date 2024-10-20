@@ -37,10 +37,16 @@ export function FilterBar({ isDisabled }: { isDisabled: boolean }) {
   const initialSort = useSelector((state: RootState) => state.filter.sort);
   const [sortState, setSortState] = useState(initialSort);
 
-  const handleCategoryChange = (event) => {
-    const selectedCategory = event.target.value;
-    setCategoryState(selectedCategory);
-    dispatch(filterActions.setCategory(selectedCategory));
+  const handleCategoryChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    if ('value' in event.target) {
+      const selectedCategory = event.target.value;
+      setCategoryState(selectedCategory);
+      dispatch(filterActions.setCategory(selectedCategory));
+    }
   };
 
   const handleSelectChange = (event: string) => {

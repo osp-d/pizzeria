@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '@/redux/Cart/cartSlice';
 
@@ -20,6 +20,7 @@ export function CartHover({
   };
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cartProductsNum = cart.cartItems.length;
 
@@ -44,12 +45,17 @@ export function CartHover({
   return (
     <HoverCard>
       <HoverCardTrigger>
-        <Link to="/cart" className="flex items-center">
+        <div
+          onClick={() => {
+            navigate('/cart');
+          }}
+          className="flex items-center"
+        >
           <ShoppingBag size="20px" color="white" className="m-2" />
           <div className="my-2 mr-2 font-bold text-white">
             {cartProductsNum}
           </div>
-        </Link>
+        </div>
       </HoverCardTrigger>
       <HoverCardContent className="min-w-[400px] p-8">
         <div className="flex flex-col gap-6">

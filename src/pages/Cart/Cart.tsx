@@ -36,7 +36,13 @@ export function Cart() {
 
   const tax = Math.floor(subtotal * 0.12 * 100) / 100;
   const total = subtotal + tax;
-  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalQuantity = cartItems.reduce((acc, item) => {
+    if (item) {
+      return acc + item.quantity;
+    } else {
+      return acc;
+    }
+  }, 0);
 
   return (
     <div className="mb-10 flex flex-col gap-6">
