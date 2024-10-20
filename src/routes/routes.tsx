@@ -4,11 +4,13 @@ import { Home } from '@/pages/Home/Home';
 import { StoreContainer } from '@/pages/Store/StoreContainer';
 import { Cart } from '@/pages/Cart/Cart';
 import { ProductView } from '@/pages/Product/ProductView';
+import { ErrorPage } from '@/pages/ErrorPage/ErrorPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

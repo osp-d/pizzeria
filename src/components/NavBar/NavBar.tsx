@@ -1,5 +1,5 @@
 import { RootState } from '@/redux/store';
-import { Heart, Menu, ShoppingBag } from 'lucide-react';
+import { Heart, Menu } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search } from './Search';
@@ -7,10 +7,10 @@ import { useMedia } from 'react-use';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
 import { useState } from 'react';
 import { filterActions } from '@/redux/Filter/filterSlice';
+import { CartHover } from './CartHover';
 
 export function NavBar() {
   const cart = useSelector((state: RootState) => state.cart);
-  const cartProductsNum = cart.cartItems.length;
 
   const favorites = useSelector((state: RootState) => state.favorites);
   const favoriteProductsNum = favorites.favoriteItems.length;
@@ -115,12 +115,8 @@ export function NavBar() {
           </div>
 
           <div className="h-6 w-[1px] rounded-full bg-gray-300" />
-          <Link to="/cart" className="flex items-center">
-            <ShoppingBag size="20px" color="white" className="m-2" />
-            <div className="my-2 mr-2 font-bold text-white">
-              {cartProductsNum}
-            </div>
-          </Link>
+
+          <CartHover cart={cart} />
         </div>
       </div>
     </div>

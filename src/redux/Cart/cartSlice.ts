@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Product, PurchaseProduct } from '@/types';
 
-type PurchaseProducts = Array<PurchaseProduct | undefined>;
+export type PurchaseProducts = Array<PurchaseProduct | undefined>;
 
 interface AddProduct {
   product: Product;
